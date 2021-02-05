@@ -38,7 +38,6 @@ public class PTSController {
 				if (!(dto.getCode() == null) && !(dto.getDays() == 0) && !(dto.getCode() == null)
 						&& !(dto.getDescription() == null) && !(dto.getDays() == 0)
 						&& !(dto.getRemindBeforeDays() == 0)) {
-					// if (true) {
 					responseObject = paymentservice.addPaymentTerm(dto);
 				} else {
 					errorCount++;

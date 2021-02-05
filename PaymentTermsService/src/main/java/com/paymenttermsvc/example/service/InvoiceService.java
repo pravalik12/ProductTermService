@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.paymenttermsvc.example.entity.Invoice;
 import com.paymenttermsvc.example.entity.PaymentTerm;
@@ -33,25 +34,28 @@ public class InvoiceService {
 
 	private static final Logger logger = LoggerFactory.getLogger(InvoiceService.class);
 
-	@Scheduled(cron = "0 5 19 * * *")
+	@Scheduled(cron = "0 24 22 * * *")
 	public String runScheduledjob() {
 
 		try {
 			logger.info("***************************************");
 			logger.info("Scheduler invoked.");
 			logger.info("***************************************");
-			
+
 			List<Invoice> al = new ArrayList<Invoice>();
 			Invoice invoice = new Invoice();
 			al = repository.findAll();
 			Iterator<Invoice> itr = al.iterator();
 			while (itr.hasNext()) {
 				invoice = itr.next();
-				if (invoice.getStatus().toLowerCase().equals("un paid")) {
-					Date date = invoice.getInvoiceDate();
-					PaymentTerm pt = (PaymentTerm) paymentservice.getPaymentTermByCode(invoice.getPterm()).getData();
-					if (isReminder(date, pt.getDays(), pt.getRemindBeforeDays())) {
-						logger.info("Reminder is Sent.");
+				if (!(invoice.getStatus().isEmpty())) {
+					if (invoice.getStatus().toLowerCase().equals("un paid")) {
+						Date date = invoice.getInvoiceDate();
+						PaymentTerm pt = (PaymentTerm) paymentservice.getPaymentTermByCode(invoice.getPterm())
+								.getData();
+						if (isReminder(date, pt.getDays(), pt.getRemindBeforeDays())) {
+							logger.info("Reminder is Sent.");
+						}
 					}
 				}
 			}

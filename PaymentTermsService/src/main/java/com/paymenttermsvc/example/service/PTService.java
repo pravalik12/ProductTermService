@@ -22,7 +22,9 @@ public class PTService {
 	int successCount = 0;
 	
 	public ResultSet<PaymentTerm> addPaymentTerm(PaymentTerm dto) {
-
+		
+		exceptionCount=0;
+		successCount=0;
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
 		try {
 			Date date = new Date();
@@ -44,6 +46,8 @@ public class PTService {
 	public ResultSet<PaymentTerm> updatePaymentTerm(PaymentTerm dto) {
 
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		exceptionCount=0;
+		successCount=0;
 		try {
 			PaymentTerm oldTerm = repository.findById(dto.getId()).orElse(null);
 			oldTerm.setCode(dto.getCode());
@@ -66,6 +70,8 @@ public class PTService {
 	public ResultSet<PaymentTerm> getPaymentTerm(int id) {
 
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		exceptionCount=0;
+		successCount=0;
 		try {
 			responseObject.setData(repository.findById(id));
 			successCount++;
@@ -81,6 +87,8 @@ public class PTService {
 	public ResultSet<List<PaymentTerm>> getAllPaymentTerms() {
 
 		ResultSet<List<PaymentTerm>> responseObject = new ResultSet<List<PaymentTerm>>();
+		exceptionCount=0;
+		successCount=0;
 		try {
 			responseObject.setData(repository.findAll());
 			successCount++;
@@ -98,6 +106,8 @@ public class PTService {
 	public ResultSet<PaymentTerm> getPaymentTermByCode(String code) {
 
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		exceptionCount=0;
+		successCount=0;
 		try {
 			responseObject.setData(repository.findByCode(code));
 			successCount++;
@@ -113,6 +123,8 @@ public class PTService {
 	public ResultSet<PaymentTerm> deletePaymentTerm(int id) {
 
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		exceptionCount=0;
+		successCount=0;
 		try {
 			repository.deleteById(id);
 			responseObject.setData("Item deleted with id: " + id);
