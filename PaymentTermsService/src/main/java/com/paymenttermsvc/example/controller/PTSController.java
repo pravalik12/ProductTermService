@@ -113,7 +113,6 @@ public class PTSController {
 		ResultSet<List<PaymentTerm>> responseObject = new ResultSet<List<PaymentTerm>>();
 		try {
 			responseObject = paymentservice.getAllPaymentTerms();
-			System.out.println(successCount);
 		} catch (Exception e) {
 			exceptionCount++;
 			responseObject.setExceptionCount(exceptionCount);

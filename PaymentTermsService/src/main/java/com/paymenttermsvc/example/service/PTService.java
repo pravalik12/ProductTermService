@@ -82,12 +82,9 @@ public class PTService {
 
 		ResultSet<List<PaymentTerm>> responseObject = new ResultSet<List<PaymentTerm>>();
 		try {
-			System.out.println(successCount);
 			responseObject.setData(repository.findAll());
-			System.out.println(successCount);
 			successCount++;
 			responseObject.setSuccessCount(successCount);
-			System.out.println(successCount);
 		} catch (Exception e) {
 			exceptionCount++;
 			responseObject.setErrorMessage(e.getMessage());
