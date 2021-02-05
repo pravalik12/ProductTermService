@@ -22,17 +22,20 @@ import lombok.Setter;
 @Table(name = "PAYMENT_TERMS")
 public class PaymentTerm {
 	
+	@Id
+	@GeneratedValue
+	private int id;
+	private Date createdDate;
+	private int days;
+	private int remindBeforeDays;
+	private String description;
+	private String code;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public Date getCreatedDate() {
 		return createdDate;
@@ -64,16 +67,4 @@ public class PaymentTerm {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	@Id
-	@GeneratedValue
-	private int id;
-	private String name;
-	private Date createdDate;
-	private int days;
-	private int remindBeforeDays;
-	private String description;
-	private String code;
-	
-	
-
 }

@@ -20,7 +20,7 @@ public class PTService {
 
 	int exceptionCount = 0;
 	int successCount = 0;
-
+	
 	public ResultSet<PaymentTerm> addPaymentTerm(PaymentTerm dto) {
 
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
@@ -82,7 +82,27 @@ public class PTService {
 
 		ResultSet<List<PaymentTerm>> responseObject = new ResultSet<List<PaymentTerm>>();
 		try {
+			System.out.println(successCount);
 			responseObject.setData(repository.findAll());
+			System.out.println(successCount);
+			successCount++;
+			responseObject.setSuccessCount(successCount);
+			System.out.println(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setErrorMessage(e.getMessage());
+			responseObject.setExceptionCount(exceptionCount);
+		}
+		System.out.println(successCount);
+		return responseObject;
+
+	}
+	
+	public ResultSet<PaymentTerm> getPaymentTermByCode(String code) {
+
+		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		try {
+			responseObject.setData(repository.findByCode(code));
 			successCount++;
 			responseObject.setSuccessCount(successCount);
 		} catch (Exception e) {
@@ -91,7 +111,6 @@ public class PTService {
 			responseObject.setExceptionCount(exceptionCount);
 		}
 		return responseObject;
-
 	}
 
 	public ResultSet<PaymentTerm> deletePaymentTerm(int id) {

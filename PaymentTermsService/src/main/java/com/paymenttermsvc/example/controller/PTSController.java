@@ -113,6 +113,22 @@ public class PTSController {
 		ResultSet<List<PaymentTerm>> responseObject = new ResultSet<List<PaymentTerm>>();
 		try {
 			responseObject = paymentservice.getAllPaymentTerms();
+			System.out.println(successCount);
+		} catch (Exception e) {
+			exceptionCount++;
+			responseObject.setExceptionCount(exceptionCount);
+			responseObject.setExceptionMessage(e.getMessage());
+		}
+
+		return responseObject;
+	}
+	
+	@GetMapping("/getByCode/{code}")
+	public ResultSet<PaymentTerm> getByCode(@PathVariable String code) {
+
+		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
+		try {
+			responseObject = paymentservice.getPaymentTermByCode(code);
 
 		} catch (Exception e) {
 			exceptionCount++;
