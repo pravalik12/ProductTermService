@@ -94,7 +94,7 @@ public class InvoiceService {
 		Date dt1withouttime = sdf.parse(sdf.format(dt1));
 		Date dt2 = cal.getTime();
 		Date dt2withouttime = sdf.parse(sdf.format(dt2));
-		if (dt1withouttime.compareTo(dt2withouttime) >= 0) {
+		if (dt1withouttime.compareTo(dt2withouttime) == 0) {
 			return true;
 		}
 		return false;
