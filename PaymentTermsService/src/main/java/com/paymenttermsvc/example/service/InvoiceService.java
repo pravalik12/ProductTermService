@@ -34,13 +34,20 @@ public class InvoiceService {
 
 	private static final Logger logger = LoggerFactory.getLogger(InvoiceService.class);
 
-	@Scheduled(cron = "0 24 22 * * *")
+	/*
+	 * This method will fetch all data from the Invoice Database and Filters the
+	 * Unpaid Invoices and sends reminders to the Invoices approaching their end
+	 * dates. Also, This is Scheduled to run on its own, at Midnight Every Day,
+	 * Every Month & Every Year.
+	 */
+
+	@Scheduled(cron = "0 0 23 * * *")
 	public String runScheduledjob() {
 
 		try {
-			logger.info("***************************************");
+			logger.info("*****************");
 			logger.info("Scheduler invoked.");
-			logger.info("***************************************");
+			logger.info("******************");
 
 			List<Invoice> al = new ArrayList<Invoice>();
 			Invoice invoice = new Invoice();
@@ -54,7 +61,9 @@ public class InvoiceService {
 						PaymentTerm pt = (PaymentTerm) paymentservice.getPaymentTermByCode(invoice.getPterm())
 								.getData();
 						if (isReminder(date, pt.getDays(), pt.getRemindBeforeDays())) {
-							logger.info("Reminder is Sent.");
+							logger.info("============================================================");
+							logger.info("Reminder is Sent to Invoice - {}", invoice.getInvoiceNumber());
+							logger.info("============================================================");
 						}
 					}
 				}
@@ -65,8 +74,12 @@ public class InvoiceService {
 
 		}
 
-		return "Successfully ran the job.";
+		return "Scheduler invoked successfully.";
 	}
+
+	/*
+	 * This method will return true if There is a need to send reminder to invoice.
+	 */
 
 	public boolean isReminder(Date date, int days, int remindBeforeDays) throws ParseException {
 

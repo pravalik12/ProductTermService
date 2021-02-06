@@ -8,21 +8,21 @@ import com.paymenttermsvc.example.service.InvoiceService;
 
 @RestController
 public class InvoiceServiceController {
-	
+
 	@Autowired
 	InvoiceService invoiceService;
-	
+
+	/* This method is used to manually trigger the Scheduler Job */
+
 	@GetMapping("/remindCustomers")
 	public String sendReminder() {
 		try {
 			invoiceService.runScheduledjob();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return "Reminder job has been triggered.";
 	}
-	
-	
 
 }

@@ -28,6 +28,10 @@ public class PTSController {
 	@Autowired
 	PTService paymentservice;
 
+	/*
+	 * This method will take the PaymentTermDTO as request body and will pass the
+	 * request to AddPaymentService...
+	 */
 	@PostMapping("/addPaymentTerm")
 	public ResultSet<PaymentTerm> addPaymentServiceTerm(@RequestBody PaymentTerm dto) {
 
@@ -60,6 +64,11 @@ public class PTSController {
 
 	}
 
+	/*
+	 * This Method will take PaymentTerm Object as input and pass it on to Service
+	 * Class.
+	 */
+
 	@PutMapping("/updatePaymentTerm")
 	public ResultSet<PaymentTerm> updatePaymentTerm(@RequestBody PaymentTerm obj) {
 
@@ -82,7 +91,9 @@ public class PTSController {
 		return responseObject;
 
 	}
-	
+
+	/* This method is used to get a PaymentTerm using an id. */
+
 	@GetMapping("/getPaymentTerm/{id}")
 	public ResultSet<PaymentTerm> getPaymentTerm(@PathVariable int id) {
 
@@ -105,7 +116,11 @@ public class PTSController {
 
 		return responseObject;
 	}
-	
+
+	/*
+	 * This method is used to get all Payment Terms from the PaymentTerms Data Base
+	 */
+
 	@GetMapping("/getAllPaymentTerm")
 	public ResultSet<List<PaymentTerm>> getAllPaymentTerms() {
 
@@ -120,7 +135,9 @@ public class PTSController {
 
 		return responseObject;
 	}
-	
+
+	/* This method is used to get data(PaymentTerms) using code as an input */
+
 	@GetMapping("/getByCode/{code}")
 	public ResultSet<PaymentTerm> getByCode(@PathVariable String code) {
 
@@ -136,22 +153,23 @@ public class PTSController {
 
 		return responseObject;
 	}
-	
+
+	/* This method is used to delete a PaymentTerm using an ID */
+
 	@DeleteMapping("/deletePaymentTerm/{id}")
-	public ResultSet<PaymentTerm> deletePaymentTerm(@PathVariable int id ) {
-		
+	public ResultSet<PaymentTerm> deletePaymentTerm(@PathVariable int id) {
+
 		ResultSet<PaymentTerm> responseObject = new ResultSet<PaymentTerm>();
 		try {
 			responseObject = paymentservice.deletePaymentTerm(id);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			exceptionCount++;
 			responseObject.setExceptionCount(exceptionCount);
 			responseObject.setExceptionMessage(e.getMessage());
 		}
 		return responseObject;
-	
+
 	}
-	
 
 	@GetMapping("/getMessage")
 	public String getMessageFromService() {
